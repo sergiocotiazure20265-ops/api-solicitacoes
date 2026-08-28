@@ -13,15 +13,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
 
-  mongodb:
-    repositories:
-      enabled: false
+  data:
+    mongodb:
+      repositories:
+        enabled: false
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: coti
-    password: coti
-    virtual-host: /
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.data.mongodb.autoconfigure.MongoDataAutoConfiguration
+      - org.springframework.boot.mongodb.autoconfigure.MongoAutoConfiguration
+      - org.springframework.boot.amqp.autoconfigure.RabbitAutoConfiguration
