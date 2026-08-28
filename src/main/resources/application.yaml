@@ -18,7 +18,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   mongodb:
-    uri: mongodb://coti:coti@localhost:27018/bd-solicitacoes?authSource=admin
+    uri: mongodb://coti:coti@localhost:27018/bd-solicitacoes?authSource=admin&uuidRepresentation=standard
 
   rabbitmq:
     host: localhost

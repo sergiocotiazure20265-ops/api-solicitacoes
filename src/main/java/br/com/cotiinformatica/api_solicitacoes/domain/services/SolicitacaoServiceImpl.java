@@ -50,7 +50,7 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
         messageProducerComponent.sendMessage(mensagem);
 
         var auditoria = new Auditoria();
-        auditoria.setId(UUID.randomUUID());
+        auditoria.setId(UUID.randomUUID().toString());
         auditoria.setDataHora(LocalDateTime.now());
         auditoria.setSolicitacao(mensagem);
         auditoria.setOperacao("CADASTRO");
