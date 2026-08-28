@@ -1,6 +1,8 @@
 package br.com.cotiinformatica.api_solicitacoes;
 
 import br.com.cotiinformatica.api_solicitacoes.domain.dtos.SolicitacaoRequest;
+import br.com.cotiinformatica.api_solicitacoes.infrastructure.components.MessageProducerComponent;
+import br.com.cotiinformatica.api_solicitacoes.infrastructure.repositories.AuditoriaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -52,11 +55,26 @@ class ApiSolicitacoesApplicationTests {
     @Autowired
     ObjectMapper objectMapper;
 
-    /**
-     * Armazena o ID criado no primeiro teste para ser reutilizado
-     * nos demais testes do fluxo CRUD.
+    /*
+     * Mock do MongoDB.
+     *
+     * Impede que os testes precisem de um MongoDB real.
      */
+    @MockitoBean
+    AuditoriaRepository auditoriaRepository;
+
+    /*
+     * Mock do RabbitMQ.
+     *
+     * Impede que os testes tentem enviar mensagens
+     * para um servidor RabbitMQ real.
+     */
+    @MockitoBean
+    MessageProducerComponent messageProducerComponent;
+
     private static String solicitacaoId;
+
+    // restante dos testes...
 
     /**
      * Verifica se o contexto completo do Spring Boot é carregado.
